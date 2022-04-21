@@ -2,7 +2,9 @@ package com.example.proyectov1_1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,10 +22,12 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     Button adelgazar;
     Button engordar;
+    Button buttonInfo;
     TextView resultado;
     TextView resultado2;
     RadioButton radioHombre;
     RadioButton radioMujer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +45,10 @@ public class MainActivity extends AppCompatActivity {
         adelgazar = (Button) findViewById(R.id.adelgazar);
         engordar = (Button) findViewById(R.id.engordar);
         resultado2 = (TextView) findViewById(R.id.resultado2);
+        buttonInfo = (Button) findViewById(R.id.buttonInfo);
 
         Spinner combo = (Spinner) findViewById(R.id.spinner);
-        String[] elementos = {"uno", "dos", "tres"};
+        String[] elementos = {"Bajo", "Medio", "Alto"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, elementos);
         combo.setAdapter(adapter);
 
@@ -58,68 +63,93 @@ public class MainActivity extends AppCompatActivity {
                 variable resultado_count transforma el resultado de la operación en String,
                 el cual es mostrado dentro del TextView
                  */
-                Double count;
-                Double count1;
-                Double count2;
-                Double countHombre;
-                Double countMujer;
-                String resultado_count;
-                String adelgazar_count;
+                Double count = 0.0;
+                Double countNivelActividad = 0.0;
+                Double countHombre = 0.0;
+                Double countMujer = 0.0;
+                String countResultado = null;
+                int countResultadoNumEntero = 0;
 
-                String datosPeso = editText_peso_kg.getText().toString();
-                Double peso = Double.parseDouble(datosPeso);
-                String datosAltura = editText_altura_cm.getText().toString();
-                Double altura = Double.parseDouble(datosAltura);
-                String datosEdad = editText_edad.getText().toString();
-                Double edad = Double.parseDouble(datosEdad);
+                Double peso = 0.0;
+                Double altura = 0.0;
+                Double edad = 0.0;
+                String datosPeso = null;
+                String datosAltura = null;
+                String datosEdad = null;
+
+                 datosPeso = editText_peso_kg.getText().toString();
+                 peso = Double.parseDouble(datosPeso);
+                 datosAltura = editText_altura_cm.getText().toString();
+                 altura = Double.parseDouble(datosAltura);
+                 datosEdad = editText_edad.getText().toString();
+                 edad = Double.parseDouble(datosEdad);
                 String selec=combo.getSelectedItem().toString();
 
                 /*
                 varios "if" que representan distintas selecciones dentro del spinner, con la posibilidad de 6 opciones difientes
                 hombre+uno, hombre+dos, hombre+tres, mujer+uno, mujer+dos, mujer+tres.
                  */
-                if(radioHombre.isChecked() && combo.getSelectedItem().equals("uno")) {
+
+                //if(datosPeso.matches("")){
+                //    Context context = getApplicationContext();
+                //    CharSequence text = "errorrr";
+               //     int duration = Toast.LENGTH_LONG;
+                //    Toast.makeText(context, text, duration).show();
+                //}
+
+               // if (TextUtils.isEmpty(editText_peso_kg.getText().toString())){
+                //    Toast.makeText(MainActivity.this, "Empty field not allowed!",
+               //             Toast.LENGTH_SHORT).show();
+              //  }
+
+                if(radioHombre.isChecked() && combo.getSelectedItem().equals("Bajo")) {
                     count = peso * 9.99 + altura * 6.25 + edad * 4.92;
                     countHombre = count + 5;
-                    count1 = countHombre * 1.2;
-                    resultado_count = String.valueOf(count1);
-                    resultado.setText(resultado_count);
+                    countNivelActividad = countHombre * 1.2;
+                    countResultadoNumEntero = (int)Math.round(countNivelActividad);
+                    countResultado = String.valueOf(countResultadoNumEntero);
+                    resultado.setText(countResultado);
                 }
-                if(radioHombre.isChecked() && combo.getSelectedItem().equals("dos")) {
+                if(radioHombre.isChecked() && combo.getSelectedItem().equals("Medio")) {
                     count = peso * 9.99 + altura * 6.25 + edad * 4.92;
                     countHombre = count + 5;
-                    count1 = countHombre * 1.5;
-                    resultado_count = String.valueOf(count1);
-                    resultado.setText(resultado_count);
+                    countNivelActividad = countHombre * 1.5;
+                    countResultadoNumEntero = (int)Math.round(countNivelActividad);
+                    countResultado = String.valueOf(countResultadoNumEntero);
+                    resultado.setText(countResultado);
                 }
-                if(radioHombre.isChecked() && combo.getSelectedItem().equals("tres")) {
+                if(radioHombre.isChecked() && combo.getSelectedItem().equals("Alto")) {
                     count = peso * 9.99 + altura * 6.25 + edad * 4.92;
                     countHombre = count + 5;
-                    count1 = countHombre * 1.75;
-                    resultado_count = String.valueOf(count1);
-                    resultado.setText(resultado_count);
+                    countNivelActividad = countHombre * 1.75;
+                    countResultadoNumEntero = (int)Math.round(countNivelActividad);
+                    countResultado = String.valueOf(countResultadoNumEntero);
+                    resultado.setText(countResultado);
                 }
 
-                if(radioMujer.isChecked() && combo.getSelectedItem().equals("uno")){
+                if(radioMujer.isChecked() && combo.getSelectedItem().equals("Bajo")){
                     count = peso * 9.99 + altura * 6.25 + edad * 4.92;
                     countMujer = count - 161;
-                    count2 = countMujer * 1.2;
-                    resultado_count = String.valueOf(count2);
-                    resultado.setText(resultado_count);
+                    countNivelActividad = countMujer * 1.2;
+                    countResultadoNumEntero = (int)Math.round(countNivelActividad);
+                    countResultado = String.valueOf(countResultadoNumEntero);
+                    resultado.setText(countResultado);
                 }
-                if(radioMujer.isChecked() && combo.getSelectedItem().equals("dos")){
+                if(radioMujer.isChecked() && combo.getSelectedItem().equals("Medio")){
                     count = peso * 9.99 + altura * 6.25 + edad * 4.92;
                     countMujer = count - 161;
-                    count2 = countMujer * 1.5;
-                    resultado_count = String.valueOf(count2);
-                    resultado.setText(resultado_count);
+                    countNivelActividad = countMujer * 1.5;
+                    countResultadoNumEntero = (int)Math.round(countNivelActividad);
+                    countResultado = String.valueOf(countResultadoNumEntero);
+                    resultado.setText(countResultado);
                 }
-                if(radioMujer.isChecked() && combo.getSelectedItem().equals("tres")){
+                if(radioMujer.isChecked() && combo.getSelectedItem().equals("Alto")){
                     count = peso * 9.99 + altura * 6.25 + edad * 4.92;
                     countMujer = count - 161;
-                    count2 = countMujer * 1.75;
-                    resultado_count = String.valueOf(count2);
-                    resultado.setText(resultado_count);
+                    countNivelActividad = countMujer * 1.75;
+                    countResultadoNumEntero = (int)Math.round(countNivelActividad);
+                    countResultado = String.valueOf(countResultadoNumEntero);
+                    resultado.setText(countResultado);
                 }
             }
         });
@@ -128,11 +158,12 @@ public class MainActivity extends AppCompatActivity {
         adelgazar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String textoAdelgazar = resultado.getText().toString();
-                Double countAd = Double.parseDouble(textoAdelgazar);
-                Double resAd = countAd * 0.8;
-                String textoresAd = String.valueOf(resAd);
-                resultado2.setText(textoresAd);
+                    String textoAdEn = resultado.getText().toString();
+                    Double countAdEn = Double.parseDouble(textoAdEn);
+                    Double countResultadoAdEN = countAdEn * 0.8;
+                    int countResultadoAdEnNumEntero = (int) Math.round(countResultadoAdEN);
+                    String textoResultadoAdEn = String.valueOf(countResultadoAdEnNumEntero);
+                    resultado2.setText(textoResultadoAdEn + " Kcl");
             }
         });
 
@@ -140,13 +171,26 @@ public class MainActivity extends AppCompatActivity {
         engordar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String textoAdelgazar = resultado.getText().toString();
-                Double countAd = Double.parseDouble(textoAdelgazar);
-                Double resAd = countAd * 1.2;
-                String textoresAd = String.valueOf(resAd);
-                resultado2.setText(textoresAd);
+                    String textoAdEn = resultado.getText().toString();
+                    Double countAdEn = Double.parseDouble(textoAdEn);
+                    Double countResultadoAdEN = countAdEn * 1.2;
+                    int countResultadoAdEnNumEntero = (int) Math.round(countResultadoAdEN);
+                    String textoResultadoAdEn = String.valueOf(countResultadoAdEnNumEntero);
+                    resultado2.setText(textoResultadoAdEn + " Kcl");
+                }
+        });
+
+        buttonInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Context context = getApplicationContext();
+                CharSequence text = "Nivel de actividad: \nBAJO - estilo de vida sedentario \nMEDIO - hasta 5 entrenamientos semanales \nALTO - alto esfuerzo fisico diario";
+                int duration = Toast.LENGTH_LONG;
+                Toast.makeText(context, text, duration).show();
             }
         });
+
 
         // RadioGroup
         radioHombre.setOnClickListener(new View.OnClickListener() {
